@@ -108,12 +108,12 @@ public class SearchView extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				ArrayList<String> conditions = new ArrayList<String>();
 				if (interests.isSelected())
-					conditions.add("join new_in_town1.interest_user iu on u.username = iu.username"
+					conditions.add(" join new_in_town1.interest_user iu on u.username = iu.username"
 							+ " where (interest = '" + interests.getText() + "')");
 				if (gender.isSelected())
-					conditions.add("(gender = '" + gender.getText() + "')");
+					conditions.add("(gender = '" + gender.getText().toUpperCase().charAt(0) + "')");
 				if (name.isSelected())
-					conditions.add("(fname '" + name.getText() + "')");
+					conditions.add("(fname = '" + name.getText() + "')");
 //				if (education.isSelected())
 //					conditions.add("(education = '" + education.getText() + "')");
 				if (age.isSelected())
@@ -121,7 +121,7 @@ public class SearchView extends JPanel {
 //				if (work.isSelected())
 //					conditions.add("(work = '" + work.getText() + "')");
 				if (nationality.isSelected())
-					conditions.add("(nationality '" + nationality.getText() + "')");
+					conditions.add("(nationality = '" + nationality.getText() + "')");
 
 				dataModel.clear();
 				try {
@@ -133,9 +133,11 @@ public class SearchView extends JPanel {
 					table.validate();
 					table.updateUI();
 				} catch (RemoteException e1) {
+					e1.printStackTrace();
 					showMessage(e1.getMessage());
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
+					e1.printStackTrace();
 					showMessage(e1.getMessage());
 				}
 

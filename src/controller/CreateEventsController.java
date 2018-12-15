@@ -18,7 +18,7 @@ import view.NewsFeedPanel;
 public class CreateEventsController {
 	private CreateEventView view;
 	private Client client;
-	private shared.Event event;
+	private Event event;
 	private String street;
 	private String blockNo;
 	private String city;
@@ -40,12 +40,6 @@ public class CreateEventsController {
 	// return eventExists;
 	// }
 
-	public void goToMainGUI() {
-		NewsFeedPanel newsFeed = new NewsFeedPanel();
-		// needs to fix Newsfeed gui to get getFram
-		newsFeed.setVisible(true);
-		NewsFeedController newsFeedCtrlr = new NewsFeedController(client, newsFeed);
-	}
 
 	public void createEvent(Event event) throws RemoteException, SQLException {
 		client.createEvent(event);
@@ -56,18 +50,18 @@ public class CreateEventsController {
 		try {
 			view.setCities(client.getCities());
 			friends = client.getFriends();
-			System.out.println(friends);
 			User[] array = new User[friends.size()];
 			array = friends.toArray(array);
 			view.setAdminsList(array);
-			System.out.println(array);
 			view.setInviteeList(array);
 			Interest[] interests = client.getAllInterests().getArrayOfInterests();
-			System.out.println(interests);
+			System.out.println(interests + " whyyyyyyyyyyyyy");
 			view.setInterestsList(interests);
 		} catch (RemoteException e) {
+			e.printStackTrace();
 			view.showMessage(e.getMessage());
 		} catch (SQLException e) {
+			e.printStackTrace();
 			view.showMessage(e.getMessage());
 		}
 

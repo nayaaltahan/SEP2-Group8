@@ -2,6 +2,7 @@ package controller;
 import java.awt.Color;
 import java.awt.HeadlessException;
 import java.rmi.RemoteException;
+import java.sql.SQLException;
 
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
@@ -11,8 +12,12 @@ import client.IClient;
 import databaseaccessing.IUserData;
 import shared.User;
 import shared.UserInfo;
+import view.AddFriendView;
 import view.AddInterestGUI;
+import view.MainGUI;
+import view.NewsFeedPanel;
 import view.SignUpView;
+import view.StatusView;
 
 public class SignUpController {
 
@@ -27,7 +32,17 @@ public class SignUpController {
 			this.view = registrerGui;
 			this.client = client;
 			registrerGui.setController(this);
+			fillUpCityCombo();
 		}
+
+		private void fillUpCityCombo() {
+			try {
+				view.setCities(client.getCities());
+			} catch (RemoteException | SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}	
+}
 
 		public boolean isValidForm() {
 
@@ -100,14 +115,14 @@ public class SignUpController {
 
 			}
 
-			if (view.getCityField().getText().isEmpty()) {
+			if (view.getSelectedCity().length() == 0) {
 
-				view.getCityField().setBorder(BorderFactory.createLineBorder(Color.RED));
+				view.cityComboBox.setBorder(BorderFactory.createLineBorder(Color.RED));
 				msj.append("City is empty \n");
 
 			} else {
-				user.setCity(view.getCityField().getText());
-				view.getCityField().setBorder(BorderFactory.createLineBorder(Color.GREEN));
+				user.setCity(view.getSelectedCity());
+				view.cityComboBox.setBorder(BorderFactory.createLineBorder(Color.GREEN));
 
 			}
 
@@ -186,7 +201,7 @@ public class SignUpController {
 			try {
 				if(client.saveUser(user)) {
 					JOptionPane.showMessageDialog(view.getFrame(), "saved user");
-					goToInterests();
+					goToMainView();
 				}else {
 					JOptionPane.showMessageDialog(view.getFrame(), "db error");			
 				}
@@ -209,14 +224,19 @@ public class SignUpController {
 			
 			view.setBlackInputs();
 			
-			
+		
 			return exist;
 		}
 		
-		public void goToInterests() {
-			this.view.getFrame().setVisible(false);
-			AddInterestGUI view = new AddInterestGUI();
-			InterestsController ctrlr = new InterestsController(client, view);	
+		public void goToMainView() {
+			view.getFrame().setVisible(false);
+			NewsFeedPanel nfView = new NewsFeedPanel();
+			NewsFeedController nfCtrlr = new NewsFeedController(client, nfView);
+			StatusView sView = new StatusView();
+			StatusCtrlr sCtrl = new StatusCtrlr(client, sView);
+			AddFriendView addView = new AddFriendView();
+			AddFriendController addCtrlr = new AddFriendController(client, addView);
+			MainGUI mainGUI = new MainGUI(client,nfView, sView, addView);
 		}
 
 	}

@@ -99,6 +99,7 @@ public class DatabaseConnection {
 //	}
 
 	public Vector<Vector<String>> search(String username, ArrayList<String> conditions) throws SQLException {
+		openDatabase();
 		StringBuilder sb = new StringBuilder();
 		sb.append("select fname, lname, birthdate, phone, nationality, gender, u.username from new_in_town1.\"user\" u");
 		int length = conditions.size();
@@ -127,6 +128,7 @@ public class DatabaseConnection {
 			}
 			dataModel.add(record);
 		}
+		closeDatabase();
 		return dataModel;
 	}
 

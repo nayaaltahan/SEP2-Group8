@@ -8,6 +8,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -17,6 +18,8 @@ import java.awt.Color;
 import javax.swing.JRadioButton;
 import javax.swing.JPasswordField;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -33,7 +36,8 @@ public class SignUpView {
 		private JPasswordField passwordField;
 		private JPasswordField vpasswordField;
 
-		private JTextField cityField;
+		public JComboBox<String> cityComboBox;
+
 		private JTextField userNameField;
 
 		private JButton btnSignUp;
@@ -53,6 +57,11 @@ public class SignUpView {
 
 		public JFrame getFrame() {
 			return frame;
+		}
+		
+		public String getSelectedCity() {
+			return cityComboBox.getSelectedItem().toString();
+
 		}
 
 		public void setFrame(JFrame frame) {
@@ -123,13 +132,6 @@ public class SignUpView {
 			this.vpasswordField = vpasswordField;
 		}
 
-		public JTextField getCityField() {
-			return cityField;
-		}
-
-		public void setCityField(JTextField cityField) {
-			this.cityField = cityField;
-		}
 
 		public JTextField getUserNameField() {
 			return userNameField;
@@ -194,6 +196,10 @@ public class SignUpView {
 				}
 			});
 		}
+		
+		public void showMessage(String s) {
+			JOptionPane.showMessageDialog(frame, s);
+		}
 
 		/**
 		 * Create the application.
@@ -219,11 +225,16 @@ public class SignUpView {
 			passwordField.setText("");
 			vpasswordField.setText("");
 
-			cityField.setText("");
 			userNameField.setText("");
 
 			this.setBlackInputs();
 
+		}
+		
+		public void setCities(String[] strings) {
+			for(int i = 0 ; i < strings.length ; i ++) {
+				cityComboBox.addItem(strings[i]);
+			}
 		}
 
 		/**
@@ -282,8 +293,8 @@ public class SignUpView {
 
 			JLabel lblCity = new JLabel("City:");
 
-			cityField = new JTextField();
-			cityField.setColumns(10);
+			cityComboBox = new JComboBox<String>();
+			cityComboBox.setMaximumRowCount(50);
 
 			userNameField = new JTextField();
 			userNameField.setColumns(10);
@@ -298,6 +309,7 @@ public class SignUpView {
 			btnSignUp = new JButton("Sign Up");
 			btnSignUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
 					if (signUpController.isValidForm()) {
 						signUpController.saveUser();
 					}
@@ -347,7 +359,7 @@ public class SignUpView {
 							.createParallelGroup(Alignment.TRAILING,
 									false)
 							.addGroup(groupLayout.createSequentialGroup().addComponent(lblCity).addGap(75)
-									.addComponent(cityField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+									.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
 											GroupLayout.PREFERRED_SIZE)
 									.addGap(18)
 									
@@ -391,7 +403,7 @@ public class SignUpView {
 					.addGap(11)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 							.addGroup(groupLayout.createSequentialGroup().addGap(24).addComponent(lblCity))
-							.addGroup(groupLayout.createSequentialGroup().addGap(18).addComponent(cityField,
+							.addGroup(groupLayout.createSequentialGroup().addGap(18).addComponent(cityComboBox,
 									GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 							.addGroup(groupLayout.createSequentialGroup().addGap(24)
 									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
@@ -424,7 +436,7 @@ public class SignUpView {
 			getPhoneField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getEmailField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getNationalityField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			getCityField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
+			cityComboBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getUserNameField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getPasswordField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getVpasswordField().setBorder(BorderFactory.createLineBorder(Color.BLACK));

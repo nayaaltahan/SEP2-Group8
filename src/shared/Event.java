@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import com.sun.glass.ui.Size;
+
 public class Event implements Serializable, NewsFeedItem {
 	private String name;
 	private MyDate time;
@@ -32,8 +34,9 @@ public class Event implements Serializable, NewsFeedItem {
 	}
 
 	public User[] getAdmins() {
-		User[] array = null;
-		return admins.toArray(array);
+		User[] array = new User[getNumberOfAdmins()];
+		array = admins.toArray(array);
+		return array;
 	}
 
 	public int getNumberOfAdmins() {
@@ -61,7 +64,9 @@ public class Event implements Serializable, NewsFeedItem {
 	}
 
 	public Interest[] getCategories() {
-		return (Interest[]) categories.toArray();
+		Interest[] i = new Interest[getNumberOfCategories()];
+		i = categories.toArray(i);
+		return i;
 	}
 
 	public String getName() {
@@ -117,7 +122,9 @@ public class Event implements Serializable, NewsFeedItem {
 	}
 	
 	public User[] getInvitees() {
-		return (User[]) invitees.toArray();
+		User[] i = new User[getNumberOfInvitees()];
+		i = invitees.toArray(i);
+		return i;
 	}
 
 }

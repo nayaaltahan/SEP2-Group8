@@ -41,8 +41,15 @@ public class InterestsController {
 		getAllInterests();
 	}
 
-	public void addChosenInterestsIntoUserInterestTable(InterestList selectedInterests) {
+	public void addChosenInterestsIntoUserInterestTable(InterestList selectedInterests) throws RemoteException, SQLException {
 		client.addChosenInterestsIntoUserInterestTable(selectedInterests);
+	}
+	public void getUserInterest() {
+		// observer
+		InterestList interests;
+		interests = client.getUserInterest(); 
+		System.out.println(interests);
+		view.setUsersInterests(interests);
 	}
 
 }
