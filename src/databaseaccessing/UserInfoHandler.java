@@ -102,7 +102,6 @@ public class UserInfoHandler implements IUserData {
 
 		} catch (Exception e) {
 			correct = false;
-			e.printStackTrace();
 		}
 
 		return correct;
@@ -150,7 +149,7 @@ public class UserInfoHandler implements IUserData {
 
 	@Override
 	public void addFriends(String username, User[] friends) throws SQLException {
-		String sql = "INSERT INTO new_in_town1\"user\".friends VALUES(?,?);";
+		String sql = "INSERT INTO new_in_town1.friends VALUES(?,?);";
 		for (int i = 0; i < friends.length; i++) {
 
 			db.update(sql, username, friends[i].getUserName());

@@ -48,7 +48,7 @@ public class MainGUI extends JFrame {
 		homePanel = new JPanel();
 		newsFeedPanel = nfPanel;
 		statusView = sView;
-		addFriendsPanel = new AddFriendView();
+		addFriendsPanel = friendsView;
 		homePanel.setLayout(new GridLayout(1, 3));
 		homePanel.add(addFriendsPanel);
 		homePanel.add(newsFeedPanel);
@@ -57,7 +57,10 @@ public class MainGUI extends JFrame {
 		tabPane.addTab("Home", homePanel);
 
 		this.editView = new EditView();
-		tabPane.addTab("Edit Password", editView);
+		editView.setBounds(100, 100, 480, 341);
+		JPanel editP = new JPanel();
+		editP.add(editView);
+		tabPane.addTab("Edit Password", editP);
 
 		createEventsPanel = new CreateEventView();
 		createEventsPanel.setBounds(100, 100, 980, 365);
@@ -66,7 +69,9 @@ public class MainGUI extends JFrame {
 		tabPane.addTab("Create Event", cPan);
 
 		this.addInterestsPanel = new AddInterestGUI();
-		tabPane.addTab("Add Interests", addInterestsPanel);
+		JPanel intPa = new JPanel();
+		intPa.add(addInterestsPanel);
+		tabPane.addTab("Add Interests", intPa);
 		
 		searchView = new SearchView(client);
 		tabPane.addTab("Search", searchView);
@@ -98,6 +103,7 @@ public class MainGUI extends JFrame {
 				if(eventsCtrlr == null) {
 					eventsCtrlr = new CreateEventsController(client, createEventsPanel);
 				}
+				eventsCtrlr.fillUpLists();
 			}
 			if(tabPane.getSelectedIndex() == 3) {
 				//add interest

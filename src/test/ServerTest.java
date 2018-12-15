@@ -6,6 +6,7 @@ import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
 import controller.IController;
 import databaseaccessing.EditInfoHandler;
@@ -44,6 +45,7 @@ public class ServerTest {
 			Naming.bind("sInterest", sInterest);
 			
 			System.out.println("Server connected");
+			System.out.println(Timestamp.valueOf("2018-1-1 1:1:0"));
 			
 		} catch (RemoteException | MalformedURLException | AlreadyBoundException e) {
 			// TODO Auto-generated catch block

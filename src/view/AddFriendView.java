@@ -101,7 +101,7 @@ public class AddFriendView extends JPanel {
 	public void setListOfFriends(ArrayList<User> friends) {
 		for (int i = 0; i < friends.size(); i++) {
 			listOfFriendsModel.addElement(friends.get(i));
-
+			System.out.println(friends.get(i));
 		}
 
 	}
@@ -180,8 +180,12 @@ public class AddFriendView extends JPanel {
 				ctrlr.refresh();
 				JOptionPane.showMessageDialog(null, "You are now following "+s, null, JOptionPane.CLOSED_OPTION);
 			} catch (RemoteException | SQLException e) {
-				JOptionPane.showMessageDialog(null, "You're already following this person", "",
+				if(e.getMessage().contains("already exists")) {
+					JOptionPane.showMessageDialog(null, "You're already following this person", "",
 						JOptionPane.CLOSED_OPTION);
+				}else {
+					e.printStackTrace();
+				}
 
 			}
 
@@ -202,7 +206,7 @@ public class AddFriendView extends JPanel {
 				if (list.getSelectedIndices().length > 1) {
 					JOptionPane.showMessageDialog(null, "You can only select one person", "Error",
 							JOptionPane.ERROR_MESSAGE);
-				} else
+				} else if (list.getSelectedIndices().length == 1)
 					showSelectedUserInfo(list.getSelectedValue().getUserInformation());
 
 			}

@@ -14,6 +14,7 @@ public class InterestAdapter implements IInterest {
 	private static final String INSERT_INTO = "INSERT INTO new_in_town1.\"interests\"(" + " interest)  VALUES (?)";
 	private static final String GET_ALL_INTERESTS = "SELECT * FROM new_in_town1.\"interests\"";
 	private static final String INSERT_INTO_EVENT_USER = "INSERT INTO new_in_town1.interest_user (username, interest) VALUES (?,?)";
+	private static final String GET_USER_INTEREST = "SELECT interest FROM new_in_town1.\"interest_user\" WHERE username = username";
 
 	public InterestAdapter() {
 		try {
@@ -61,5 +62,22 @@ public class InterestAdapter implements IInterest {
 			}
 		}
 
+	}
+	
+	@Override
+	public InterestList getUserInterest(String username) throws SQLException, RemoteException {
+		try {
+			ArrayList<Object[]> list = db.query(GET_USER_INTEREST);
+			int rows = list.size();
+			InterestList interests = new InterestList();
+			for (int i = 0; i < rows; i++) {
+				interests.add(new Interest(list.get(i)[0].toString()));
+			}System.out.println(interests);
+			return interests;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

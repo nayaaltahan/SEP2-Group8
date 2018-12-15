@@ -1,5 +1,6 @@
 package view;
 
+import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,7 +28,6 @@ import javax.swing.JTextField;
 
 import javax.swing.JScrollPane;
 
-
 import javax.swing.JButton;
 
 import javax.swing.JComboBox;
@@ -35,13 +35,12 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
-public class CreateEventView extends JPanel{
+public class CreateEventView extends JPanel {
 
 	private JTextField textStreetName;
 	private JTextField eventName;
 	private JButton btnCreate;
 	private JLabel lblIfPrivate;
-	private JButton btnCancel ;
 	private JLabel lblEventName;
 	private JLabel lblStreetName;
 	private JComboBox<String> cityComboBox;
@@ -54,26 +53,30 @@ public class CreateEventView extends JPanel{
 	private JLabel lblTime;
 	private JComboBox<String> minute;
 	private JComboBox<String> hour;
-	private JScrollPane adminsScroll;
+
+	private DefaultListModel<User> adminsDataModel;
 	private JList<User> admins;
-	private JLabel lblAdministrators;
-	private JScrollPane inviteesScroll;
+	private JScrollPane adminsScroll;
+
+	private DefaultListModel<User> inviteesDataModel;
 	private JList<User> invitees;
-	private JLabel lblInvitees;
-	private JScrollPane categoriesScroll;
+	private JScrollPane inviteesScroll;
+
+	private DefaultListModel<Interest> categoriesDataModel;
 	private JList<Interest> categories;
+	private JScrollPane categoriesScroll;
+
+	private JLabel lblAdministrators;
+	private JLabel lblInvitees;
+
 	private JLabel lblCategories;
-	
+
 	private CreateEventsController ctrlr;
 	private CreatingEventsActionListener listener;
-	private DefaultListModel<User> inviteesDataModel;
-	private DefaultListModel<User> adminsDataModel;
-	private DefaultListModel<Interest> categoriesDataModel;
 
 	/**
 	 * Launch the application.
 	 */
-
 
 	/**
 	 * Create the application.
@@ -91,8 +94,6 @@ public class CreateEventView extends JPanel{
 		lblIfPrivate = new JLabel("Private:");
 
 		btnCreate = new JButton("Create!");
-
-		btnCancel = new JButton("Cancel");
 
 		lblEventName = new JLabel("Event name:");
 
@@ -131,7 +132,8 @@ public class CreateEventView extends JPanel{
 			} else {
 				s = "" + i;
 				month.addItem(s);
-			}		}
+			}
+		}
 
 		day = new JComboBox<String>();
 		day.setMaximumRowCount(40);
@@ -151,7 +153,6 @@ public class CreateEventView extends JPanel{
 		day.addItem(twentyNine);
 		day.addItem(thirty);
 		day.addItem(thirtyOne);
-		
 
 		lblTime = new JLabel("Time:");
 
@@ -173,215 +174,203 @@ public class CreateEventView extends JPanel{
 		minute.addItem("15");
 		minute.addItem("30");
 		minute.addItem("45");
-		
+
 		listener = new CreatingEventsActionListener();
-		btnCancel.addActionListener(listener);
 		btnCreate.addActionListener(listener);
 
-		adminsScroll = new JScrollPane();
-		adminsScroll.setViewportView(admins);
 		adminsDataModel = new DefaultListModel<User>();
 		admins = new JList<User>(adminsDataModel);
-		adminsScroll.add(admins);
-
 		lblAdministrators = new JLabel("Administrators:");
+		adminsScroll = new JScrollPane(admins);
 
-		inviteesScroll = new JScrollPane();
-		inviteesScroll.setViewportView(invitees);
 		inviteesDataModel = new DefaultListModel<User>();
 		invitees = new JList<User>(inviteesDataModel);
-		inviteesScroll.add(invitees);
+		inviteesScroll = new JScrollPane(invitees);
 
 		lblInvitees = new JLabel("Invitees:");
 
-		categoriesScroll = new JScrollPane();
-		categoriesScroll.setViewportView(categories);
 		categoriesDataModel = new DefaultListModel<Interest>();
-		categories = new JList<Interest>();
-		categoriesScroll.add(categories);
+		categories = new JList<Interest>(categoriesDataModel);
+		categoriesScroll = new JScrollPane(categories);
+
+		//categoriesScroll.add(categories);
 
 		lblCategories = new JLabel("Categories:");
-		
+
 		GroupLayout groupLayout = new GroupLayout(this);
-		groupLayout.setHorizontalGroup(
-			groupLayout.createParallelGroup(Alignment.LEADING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addGap(19)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblEventName)
-						.addComponent(lblDate)
-						.addComponent(lblStreetName)
-						.addComponent(lblTime)
-						.addComponent(lblCity)
+		groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+				.createSequentialGroup().addGap(19)
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(lblEventName)
+						.addComponent(lblDate).addComponent(lblStreetName).addComponent(lblTime).addComponent(lblCity)
 						.addComponent(lblIfPrivate))
-					.addGap(12)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(btnCreate)
-							.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
-							.addComponent(btnCancel))
+				.addGap(12)
+				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup().addComponent(btnCreate)
+								.addPreferredGap(ComponentPlacement.RELATED, 100, Short.MAX_VALUE))
 						.addComponent(cityComboBox, Alignment.LEADING, 0, 246, Short.MAX_VALUE)
 						.addComponent(eventName, GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(year, 0, 110, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(month, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
-							.addGap(12)
-							.addComponent(day, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.RELATED))
+						.addGroup(groupLayout.createSequentialGroup().addComponent(year, 0, 110, Short.MAX_VALUE)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(month, GroupLayout.PREFERRED_SIZE, 58, GroupLayout.PREFERRED_SIZE)
+								.addGap(12)
+								.addComponent(day, GroupLayout.PREFERRED_SIZE, 54, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED))
 						.addComponent(textStreetName, GroupLayout.DEFAULT_SIZE, 246, Short.MAX_VALUE)
-						.addGroup(Alignment.LEADING, groupLayout.createSequentialGroup()
-							.addComponent(hour, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(minute, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE))
+						.addGroup(Alignment.LEADING,
+								groupLayout.createSequentialGroup()
+										.addComponent(hour, GroupLayout.PREFERRED_SIZE, 66, GroupLayout.PREFERRED_SIZE)
+										.addGap(18).addComponent(minute, GroupLayout.PREFERRED_SIZE, 62,
+												GroupLayout.PREFERRED_SIZE))
 						.addComponent(isPrivate, Alignment.LEADING, 0, 246, Short.MAX_VALUE))
-					.addGap(53)
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+				.addGap(53)
+				.addGroup(
+						groupLayout.createParallelGroup(Alignment.TRAILING)
+								.addGroup(
+										groupLayout.createSequentialGroup().addComponent(lblAdministrators).addGap(75))
+								.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(adminsScroll, GroupLayout.PREFERRED_SIZE, 145,
+												GroupLayout.PREFERRED_SIZE)
+										.addGap(18)))
+				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createSequentialGroup().addComponent(lblInvitees).addGap(125))
 						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblAdministrators)
-							.addGap(75))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(adminsScroll, GroupLayout.PREFERRED_SIZE, 145, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(lblInvitees)
-							.addGap(125))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addComponent(inviteesScroll, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-							.addGap(18)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addComponent(lblCategories)
+								.addComponent(inviteesScroll, GroupLayout.PREFERRED_SIZE, 156,
+										GroupLayout.PREFERRED_SIZE)
+								.addGap(18)))
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(lblCategories)
 						.addComponent(categoriesScroll, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
-					.addGap(72))
-		);
-		groupLayout.setVerticalGroup(
-			groupLayout.createParallelGroup(Alignment.TRAILING)
-				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap()
-					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
-						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-							.addComponent(lblAdministrators)
-							.addComponent(lblInvitees)
-							.addComponent(lblCategories))
-						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addComponent(lblEventName)
-							.addComponent(eventName, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)))
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-						.addGroup(groupLayout.createSequentialGroup()
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblDate)
-								.addComponent(year, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(day, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(month, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-								.addComponent(lblTime)
+				.addGap(72)));
+		groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.TRAILING).addGroup(groupLayout
+				.createSequentialGroup().addContainerGap()
+				.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblAdministrators)
+								.addComponent(lblInvitees).addComponent(lblCategories))
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(lblEventName)
+								.addComponent(eventName, GroupLayout.PREFERRED_SIZE, 22, GroupLayout.PREFERRED_SIZE)))
+				.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
+						.createSequentialGroup().addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblDate)
+								.addComponent(year, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(day, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE)
+								.addComponent(month, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(lblTime)
 								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-									.addComponent(hour, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(minute, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblStreetName)
-								.addComponent(textStreetName, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-								.addComponent(lblCity))
-							.addGap(18)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(lblIfPrivate)
+										.addComponent(hour, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(minute, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+												GroupLayout.PREFERRED_SIZE)))
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblStreetName)
+								.addComponent(textStreetName, GroupLayout.PREFERRED_SIZE, 19,
+										GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(
+								groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, 19,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(lblCity))
+						.addGap(18)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE).addComponent(lblIfPrivate)
 								.addComponent(isPrivate, GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE))
-							.addGap(32)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(btnCancel)
+						.addGap(32).addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+
 								.addComponent(btnCreate)))
-						.addGroup(groupLayout.createSequentialGroup()
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(categoriesScroll, GroupLayout.PREFERRED_SIZE, 255, GroupLayout.PREFERRED_SIZE)
-								.addComponent(inviteesScroll, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE)
-								.addComponent(adminsScroll, GroupLayout.PREFERRED_SIZE, 256, GroupLayout.PREFERRED_SIZE))))
-					.addContainerGap())
-		);
+						.addGroup(groupLayout.createSequentialGroup().addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+										.addComponent(categoriesScroll, GroupLayout.PREFERRED_SIZE, 255,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(inviteesScroll, GroupLayout.PREFERRED_SIZE, 256,
+												GroupLayout.PREFERRED_SIZE)
+										.addComponent(adminsScroll, GroupLayout.PREFERRED_SIZE, 256,
+												GroupLayout.PREFERRED_SIZE))))
+				.addContainerGap()));
 		setLayout(groupLayout);
 	}
-	
+
 	public void showMessage(String message) {
 		JOptionPane.showMessageDialog(this, message);
 	}
-	
+
 	public void setController(CreateEventsController ctrlr) {
 		this.ctrlr = ctrlr;
 	}
-	
+
 	public void setCities(String[] strings) {
-		for(int i = 0 ; i < strings.length ; i ++) {
+		cityComboBox.removeAllItems();
+		for (int i = 0; i < strings.length; i++) {
 			cityComboBox.addItem(strings[i]);
 		}
 	}
-	
+
 	public void setInviteeList(User[] friendlist) {
-		for(int i = 0 ; i < friendlist.length; i++) {
+		inviteesDataModel.clear();
+		for (int i = 0; i < friendlist.length; i++) {
 			System.out.println(friendlist[i]);
 			inviteesDataModel.addElement(friendlist[i]);
 		}
 	}
-	
+
 	public void setAdminsList(User[] friendlist) {
-		for(int i = 0 ; i < friendlist.length; i++) {
+		adminsDataModel.clear();
+		for (int i = 0; i < friendlist.length; i++) {
 			adminsDataModel.addElement(friendlist[i]);
-		}	}
-	
+		}
+	}
+
 	public void setInterestsList(Interest[] interests) {
-		for(int i = 0 ; i < interests.length; i++) {
-			System.out.println(interests[i]);
+		categoriesDataModel.clear();
+		for (int i = 0; i < interests.length; i++) {
+			System.out.println(interests[i] + "" + interests.length);
 			categoriesDataModel.addElement(interests[i]);
-		}	}
-	
-	private class CreatingEventsActionListener implements ActionListener{
+		}
+	}
+
+	private class CreatingEventsActionListener implements ActionListener {
 
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String message = "";
-			if(e.getSource() == btnCreate) {
-				if(eventName.getText().length() == 0) {
+			if (e.getSource() == btnCreate) {
+				if (eventName.getText().length() == 0) {
 					message += "Event name is empty\n";
-				} else if(textStreetName.getText().length()==0) {
+				} else if (textStreetName.getText().length() == 0) {
 					message += "Street name is empty\n";
-				}
-				else {
+				} else {
 					String name = eventName.getText();
-					String address = textStreetName.getText() ;
-					MyDate eventTime = new MyDate(00, Integer.parseInt((String)minute.getSelectedItem()), Integer.parseInt((String)hour.getSelectedItem()),
-							Integer.parseInt((String)day.getSelectedItem()), Integer.parseInt((String)month.getSelectedItem()), (Integer)year.getSelectedItem());
+					String address = textStreetName.getText();
+					MyDate eventTime = new MyDate(00, Integer.parseInt((String) minute.getSelectedItem()),
+							Integer.parseInt((String) hour.getSelectedItem()),
+							Integer.parseInt((String) day.getSelectedItem()),
+							Integer.parseInt((String) month.getSelectedItem()), (Integer) year.getSelectedItem());
 					System.out.println(eventTime.toString());
 					String city = cityComboBox.getSelectedItem().toString();
-					List<User> adminsList =  admins.getSelectedValuesList();
+					List<User> adminsList = admins.getSelectedValuesList();
 					List<User> inviteesList = invitees.getSelectedValuesList();
 					List<Interest> interestList = categories.getSelectedValuesList();
 					boolean isPrivateBoolean = false;
-					if(isPrivate.getSelectedItem().toString().equals("YES")) {
+					if (isPrivate.getSelectedItem().toString().equals("YES")) {
 						isPrivateBoolean = true;
 					}
-					Event event = new Event(name, eventTime, address, city,
-							interestList, adminsList, inviteesList, isPrivateBoolean);
+					Event event = new Event(name, eventTime, address, city, interestList, adminsList, inviteesList,
+							isPrivateBoolean);
 					try {
 						ctrlr.createEvent(event);
 					} catch (RemoteException e1) {
+						e1.printStackTrace();
 						showMessage(e1.getMessage());
 					} catch (SQLException e1) {
+						e1.printStackTrace();
 						showMessage(e1.getMessage());
 					}
 				}
 			}
-			if(e.getSource() == btnCancel) {
-				ctrlr.goToMainGUI();
-			}
-			
+
 		}
-		
+
 	}
-	
+
 }

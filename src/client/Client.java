@@ -74,7 +74,7 @@ public class Client {
 		return false;
 	}
 
-	public boolean saveUser(UserInfo user) {
+	public boolean saveUser(UserInfo user)  {
 		try {
 			boolean temp = userData.saveUser(user);
 			if (temp) {
@@ -118,13 +118,8 @@ public class Client {
 		return null;
 	}
 
-	public void addChosenInterestsIntoUserInterestTable(InterestList selectedInterests) {
-		try {
+	public void addChosenInterestsIntoUserInterestTable(InterestList selectedInterests) throws SQLException, RemoteException {
 			interestData.addChosenInterestsIntoUserInterestTable(username, selectedInterests);
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}
 
 	public ArrayList<User> getUsers() {
@@ -199,6 +194,16 @@ public class Client {
 	
 	public String[] getCities() throws RemoteException, SQLException {
 		return eventData.getCities();
+	}
+	
+	public InterestList getUserInterest()  {
+		try {
+			return interestData.getUserInterest(username);
+		} catch (RemoteException | SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}return  null;
+
 	}
 
 }

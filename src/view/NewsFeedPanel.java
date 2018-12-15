@@ -41,6 +41,13 @@ public class NewsFeedPanel extends JPanel {
 		lblNewsFeed.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		add(lblNewsFeed);
 		scrollPane = new JScrollPane();
+		refreshButton = new JButton("Refresh Newsfeed");
+		refreshButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				refresh();
+			}
+		});
+		add(refreshButton);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		setVisible(true);
 	}
@@ -55,13 +62,6 @@ public class NewsFeedPanel extends JPanel {
 			System.out.println(i);
 		}
 		scrollPane = new JScrollPane(panel);
-		refreshButton = new JButton("Refresh Newsfeed");
-		refreshButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				refresh();
-			}
-		});
-		add(refreshButton);
 		add(scrollPane);
 		this.repaint();
 		this.updateUI();
