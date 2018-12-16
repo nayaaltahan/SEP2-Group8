@@ -4,7 +4,6 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-import shared.Message;
 import shared.Status;
 
 public interface IMessagesData extends Remote{

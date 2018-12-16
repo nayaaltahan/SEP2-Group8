@@ -18,11 +18,7 @@ import view.NewsFeedPanel;
 public class CreateEventsController {
 	private CreateEventView view;
 	private Client client;
-	private Event event;
-	private String street;
-	private String blockNo;
-	private String city;
-	private Address address;
+
 
 	public CreateEventsController(Client client, CreateEventView view) {
 		this.client = client;

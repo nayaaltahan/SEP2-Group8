@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.sun.glass.ui.Size;
 
-public class Event implements Serializable, NewsFeedItem {
+public class Event implements NewsFeedItem {
 	private String name;
 	private MyDate time;
 	private String address;
@@ -24,8 +24,8 @@ public class Event implements Serializable, NewsFeedItem {
 		this.address = address;
 		this.city = city;
 		this.categories = new ArrayList<Interest>();
-				this.categories.addAll(categories);
-		this.admins = new  ArrayList<User>();
+		this.categories.addAll(categories);
+		this.admins = new ArrayList<User>();
 		this.admins.addAll(admins);
 		this.isPrivate = isPrivate;
 		this.invitees = new ArrayList<User>();
