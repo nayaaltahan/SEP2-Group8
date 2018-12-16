@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Map;
 
-import shared.Message;
 import shared.MyDate;
 import shared.ProxyUser;
 import shared.Status;

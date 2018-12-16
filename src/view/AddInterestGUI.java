@@ -13,9 +13,7 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import controller.InterestsController;
-import controller.NewsFeedController;
-import controller.StatusCtrlr;
-import databaseaccessing.IInterest;
+
 import model.InterestList;
 import shared.Interest;
 import shared.User;
@@ -50,11 +48,12 @@ public class AddInterestGUI extends JPanel{
 	private InterestButtonListener btnListener;
 
 	
-	private JList<Interest> userInterestList;
 	private DefaultListModel<Interest> userInterestListModel;
 	private JScrollPane allUInterestsScrollPane;
-	private JList<Interest> list_1;
+	//private JList<Interest> user_list;
 	private JLabel lblMyInterests;
+	private JList list_1;
+	private JList<Interest> user_list;
 
 
 	/**
@@ -82,8 +81,7 @@ public class AddInterestGUI extends JPanel{
 		
 		allUInterestsScrollPane=new JScrollPane();
 		userInterestListModel=new DefaultListModel<Interest>();
-		list_1 = new JList<Interest>();
-		list_1.setModel(userInterestListModel);
+		
 
 
 		textField = new JTextField();
@@ -100,7 +98,6 @@ public class AddInterestGUI extends JPanel{
 		//////////////////////////
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(btnListener);
-	allUInterestsScrollPane.setViewportView(userInterestList);
 		
 		JLabel lblCantFindAnything = new JLabel("Can't find an interest? Add it to the list");
 		lblCantFindAnything.setHorizontalAlignment(SwingConstants.TRAILING);
@@ -129,29 +126,29 @@ public class AddInterestGUI extends JPanel{
 									.addGap(47)
 									.addComponent(lblCantFindAnything))
 								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(56)
+									.addGap(95)
+									.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
+								.addGroup(groupLayout.createSequentialGroup()
+									.addGap(87)
 									.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 									.addGap(34)
-									.addComponent(btnAdd))
-								.addGroup(groupLayout.createSequentialGroup()
-									.addGap(95)
-									.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))))
+									.addComponent(btnAdd))))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addContainerGap()
 							.addComponent(lblInterestsAddBy)))
-					.addPreferredGap(ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
-							.addComponent(list_1, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
-							.addGap(32))
-						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
 							.addComponent(lblMyInterests)
-							.addGap(68))))
+							.addGap(68))
+						.addGroup(Alignment.TRAILING, groupLayout.createSequentialGroup()
+							.addComponent(allUInterestsScrollPane, GroupLayout.PREFERRED_SIZE, 191, GroupLayout.PREFERRED_SIZE)
+							.addGap(38))))
 		);
 		groupLayout.setVerticalGroup(
 			groupLayout.createParallelGroup(Alignment.TRAILING)
 				.addGroup(groupLayout.createSequentialGroup()
-					.addContainerGap(107, Short.MAX_VALUE)
+					.addContainerGap(53, Short.MAX_VALUE)
 					.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
 						.addComponent(lblInterestsAddBy)
 						.addGroup(groupLayout.createSequentialGroup()
@@ -160,9 +157,7 @@ public class AddInterestGUI extends JPanel{
 					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
 						.addGroup(groupLayout.createSequentialGroup()
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE)
-								.addComponent(list_1, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 252, GroupLayout.PREFERRED_SIZE))
 						.addGroup(groupLayout.createSequentialGroup()
 							.addGap(28)
 							.addComponent(lblCantFindAnything)
@@ -171,14 +166,25 @@ public class AddInterestGUI extends JPanel{
 								.addComponent(textField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 								.addComponent(btnAdd))
 							.addPreferredGap(ComponentPlacement.RELATED)
-							.addComponent(btnSave)))
-					.addGap(106))
+							.addComponent(btnSave))
+						.addGroup(groupLayout.createSequentialGroup()
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(allUInterestsScrollPane, GroupLayout.PREFERRED_SIZE, 261, GroupLayout.PREFERRED_SIZE)))
+					.addGap(165))
 		);
+		
+
+		allUInterestsScrollPane.setViewportView(list_1);
 		list = new JList<Interest>();
-		list.setBorder(new MatteBorder(2, 2, 1, 1, (Color) new Color(64, 64, 64)));
 		scrollPane.setViewportView(list);
+		list.setBorder(new MatteBorder(2, 2, 1, 1, (Color) new Color(64, 64, 64)));
 		list.setModel(listModel);
+		user_list = new JList<Interest>();
+		allUInterestsScrollPane.setViewportView(user_list);
+		user_list.setModel(userInterestListModel);
+		
 		setLayout(groupLayout);
+		
 	
 	}
 
@@ -188,17 +194,15 @@ public class AddInterestGUI extends JPanel{
 		for (int i = 0; i < array.length; i++) {
 			listModel.addElement(array[i]);
 			
-			
 		}
 
 	}
 	public void setUsersInterests(InterestList interests) {
 		Interest[] array = interests.getArrayOfInterests();
+		userInterestListModel.removeAllElements();
 		for (int i = 0; i < array.length; i++) {
 			userInterestListModel.addElement(array[i]);
 			System.out.println("users interest"+ interests.get(i));
-			
-			
 		}
 
 	}
@@ -212,6 +216,7 @@ public class AddInterestGUI extends JPanel{
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnAdd) {
 				ctrlr.saveInterest(new Interest(textField.getText()));
+				
 			}
 			if (e.getSource() == btnSave) {
 				try {
@@ -224,7 +229,6 @@ public class AddInterestGUI extends JPanel{
 					}else {
 					e1.printStackTrace();}
 				}
-				//ctrlr.goToMainView();
 
 			}
 

@@ -46,9 +46,13 @@ public class MainGUI extends JFrame {
 		super("Main GUI");
 		this.client = client;
 		homePanel = new JPanel();
+		JPanel addP = new JPanel();
 		newsFeedPanel = nfPanel;
 		statusView = sView;
 		addFriendsPanel = friendsView;
+		//addFriendsPanel.setBounds(100, 100, 300, 300);
+		//addFriendsPanel.setBounds(100, 100, 300, 400);
+		//addP.add(addFriendsPanel);
 		homePanel.setLayout(new GridLayout(1, 3));
 		homePanel.add(addFriendsPanel);
 		homePanel.add(newsFeedPanel);

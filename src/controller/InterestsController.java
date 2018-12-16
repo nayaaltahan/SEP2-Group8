@@ -20,6 +20,7 @@ public class InterestsController {
 		this.view = view;
 		view.setController(this);
 		getAllInterests();
+		getUserInterest();
 	}
 
 	public void getAllInterests() {
@@ -43,6 +44,7 @@ public class InterestsController {
 
 	public void addChosenInterestsIntoUserInterestTable(InterestList selectedInterests) throws RemoteException, SQLException {
 		client.addChosenInterestsIntoUserInterestTable(selectedInterests);
+		getUserInterest();
 	}
 	public void getUserInterest() {
 		// observer

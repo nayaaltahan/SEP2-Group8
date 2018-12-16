@@ -101,7 +101,7 @@ public class DatabaseConnection {
 	public Vector<Vector<String>> search(String username, ArrayList<String> conditions) throws SQLException {
 		openDatabase();
 		StringBuilder sb = new StringBuilder();
-		sb.append("select fname, lname, birthdate, phone, nationality, gender, u.username from new_in_town1.\"user\" u");
+		sb.append("select fname, lname, extract(YEAR FROM age(cast (birthdate as date))),  nationality, gender, u.username from new_in_town1.\"user\" u");
 		int length = conditions.size();
 		if (length != 0 && !conditions.get(0).contains("join"))
 			sb.append(" where ");
@@ -122,7 +122,7 @@ public class DatabaseConnection {
 		Vector<String> record;
 		while (rs.next()) {
 			record = new Vector<String>();
-			for (int i = 0; i < 7; i++) {
+			for (int i = 0; i < 6; i++) {
 				record.add(rs.getString(i + 1));
 				System.out.println(rs.getString(i + 1));
 			}

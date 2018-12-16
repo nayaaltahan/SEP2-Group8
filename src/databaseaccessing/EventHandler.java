@@ -58,8 +58,8 @@ public class EventHandler implements IEventData {
 		ArrayList<Event> arrayToBeReturned = new ArrayList<Event>();
 		try {
 			ArrayList<Object[]> publicEvents = db.query(
-					"select name, time, is_private, e.address, city from new_in_town1.events natural join new_in_town1.address"
-					+ " where is_private = false and city = (select u.city from new_in_town1.\"user\" u where u.username = ?;",
+					"select name, time, is_private, e.address, city from new_in_town1.events e natural join new_in_town1.address"
+					+ " where is_private = false and city = (select u.city from new_in_town1.\"user\" u where u.username = ?);",
 					username);
 			ArrayList<Object[]> events = db.query(
 					"			 select name, e.time, is_private, e.address, city from new_in_town1.events e natural join new_in_town1.address a left join new_in_town1.invitees i on e.name = i.e_name where is_private = true and i.username = ?;" 
@@ -95,7 +95,7 @@ public class EventHandler implements IEventData {
 	private ArrayList<User> getInvitees(String eventName, Timestamp timestamp, String address) {
 		try {
 			ArrayList<Object[]> eventsAndInvitiees = db
-					.query("SELECT ei.username FROM new_in_town1.Invitees ei WHERE ei.name = ? and ei.time = ? and ei.address = ?;", eventName,timestamp,address);
+					.query("SELECT ei.username FROM new_in_town1.Invitees ei WHERE ei.e_name = ? and ei.time = ? and ei.address = ?;", eventName,timestamp,address);
 			int rows = eventsAndInvitiees.size();
 			int columns = 1;
 			ArrayList<User> invitees = new ArrayList<User>();
@@ -114,7 +114,7 @@ public class EventHandler implements IEventData {
 	private ArrayList<User> getAdmins(String eventName, Timestamp timestamp, String address) {
 		try {
 			ArrayList<Object[]> eventsAndAdmins = db
-					.query("SELECT ea.username FROM new_in_town1.Admins ea WHERE ea.name = ? and ea.time = ? and ea.address = ?;", eventName,timestamp,address);
+					.query("SELECT ea.username FROM new_in_town1.Admins ea WHERE ea.e_name = ? and ea.time = ? and ea.address = ?;", eventName,timestamp,address);
 			int rows = eventsAndAdmins.size();
 			int columns = 1;
 			ArrayList<User> admins = new ArrayList<User>();
@@ -131,9 +131,10 @@ public class EventHandler implements IEventData {
 	}
 
 	private ArrayList<Interest> getEventInterests(String eventName, Timestamp timestamp, String address ) {
+
 		try {
 			ArrayList<Object[]> eventsNameAndInterest = db
-					.query("SELECT ei.interest FROM new_in_town1.Event_Interest ei WHERE ei.name = ? and ei.time = ? and ei.address = ?;", eventName, timestamp,address);
+					.query("SELECT ei.interest FROM new_in_town1.Event_Interest ei WHERE ei.e_name = ? and ei.time = ? and ei.address = ?;", eventName, timestamp,address);
 			int rows = eventsNameAndInterest.size();
 			int columns = 1;
 			ArrayList<Interest> interests = new ArrayList<Interest>();
