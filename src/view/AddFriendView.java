@@ -26,6 +26,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 import controller.AddFriendController;
+import shared.Interest;
 import shared.User;
 import shared.User;
 import shared.UserInfo;
@@ -49,7 +50,7 @@ public class AddFriendView extends JPanel {
 
 	private MyActionListener listener;
 	private JPanel panel;
-	private AddFriendController  ctrlr;
+	private AddFriendController ctrlr;
 
 	private SelectionListener listListener;
 
@@ -88,7 +89,7 @@ public class AddFriendView extends JPanel {
 		add(searchTxtField);
 		add(allUsersScrollPane);
 		add(allFriendsScrollPane);
-		
+
 	}
 
 	public void setUsers(ArrayList<User> users2) {
@@ -125,7 +126,7 @@ public class AddFriendView extends JPanel {
 
 	}
 
-	public void showSelectedUserInfo(UserInfo userInfo) {
+	public void showSelectedUserInfo(UserInfo userInfo, ArrayList<Interest> interests) {
 		
 		String name = "About ";
 		for (int i = 0; i < listModel.getSize(); i++) {
@@ -133,7 +134,13 @@ public class AddFriendView extends JPanel {
 				name += listModel.getElementAt(i).getUserName();
 			}
 		}
-		JOptionPane.showMessageDialog(null, userInfo.getAbout(), name, JOptionPane.CLOSED_OPTION);
+		String interestString = "";
+		if(interests.size() > 0) {
+		interestString = interests.get(0).toString();
+		for(int i = 1 ; i < interests.size(); i++) {
+			interestString += "-" + interests.get(i);
+		}}
+		JOptionPane.showMessageDialog(null, userInfo.getAbout() + "\n" + interestString, name, JOptionPane.CLOSED_OPTION);
 	}
 
 	public void search() {
@@ -143,9 +150,10 @@ public class AddFriendView extends JPanel {
 		int index = 0;
 		for (int i = 0; i < listModel.getSize(); i++) {
 
-			if (username.equals(listModel.getElementAt(i).getUserName())) {
+			if (listModel.getElementAt(i).getUserName().startsWith(username)) {
 				invalidUser = false;
 				index = i;
+				break;
 			}
 
 		}
@@ -159,17 +167,16 @@ public class AddFriendView extends JPanel {
 
 	public void follow() {
 		List<User> friends = list.getSelectedValuesList();
-		String s="";
+		String s = "";
 		User[] friendss = new User[friends.size()];
 		for (int i = 0; i < friends.size(); i++) {
 
 			friendss[i] = friends.get(i);
-			if(friends.size()>1) {
-				s+=", "+friends.get(i).getUserName();
+			if (friends.size() > 1) {
+				s += ", " + friends.get(i).getUserName();
 
-			}
-			else {
-				s+=friends.get(i).getUserName();
+			} else {
+				s += friends.get(i).getUserName();
 
 			}
 		}
@@ -178,12 +185,12 @@ public class AddFriendView extends JPanel {
 			try {
 				ctrlr.saveFriendsToDatabase(friendss);
 				ctrlr.refresh();
-				JOptionPane.showMessageDialog(null, "You are now following "+s, null, JOptionPane.CLOSED_OPTION);
+				JOptionPane.showMessageDialog(null, "You are now following " + s, null, JOptionPane.CLOSED_OPTION);
 			} catch (RemoteException | SQLException e) {
-				if(e.getMessage().contains("already exists")) {
+				if (e.getMessage().contains("already exists")) {
 					JOptionPane.showMessageDialog(null, "You're already following this person", "",
-						JOptionPane.CLOSED_OPTION);
-				}else {
+							JOptionPane.CLOSED_OPTION);
+				} else {
 					e.printStackTrace();
 				}
 
@@ -207,7 +214,7 @@ public class AddFriendView extends JPanel {
 					JOptionPane.showMessageDialog(null, "You can only select one person", "Error",
 							JOptionPane.ERROR_MESSAGE);
 				} else if (list.getSelectedIndices().length == 1)
-					showSelectedUserInfo(list.getSelectedValue().getUserInformation());
+					showSelectedUserInfo(list.getSelectedValue().getUserInformation(), list.getSelectedValue().getUserInterest());
 
 			}
 			if (e.getSource() == addFriendBtn) {

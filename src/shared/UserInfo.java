@@ -9,21 +9,19 @@ public class UserInfo implements Serializable{
 	private String lname;
 	private String birthdate;
 	private int phone;
-	private String email;
 	private String gender;
 	private String nationality;
 	private String username;
 	private String password;
 	private String city;
 
-	public UserInfo(String fname, String lname, String birthdate, int phone, String email, String gender,
+	public UserInfo(String fname, String lname, String birthdate, int phone, String gender,
 			String nationality, String username, String password, String city) {
 		super();
 		this.fname = fname;
 		this.lname = lname;
 		this.birthdate = birthdate;
 		this.phone = phone;
-		this.email = email;
 		this.gender = gender;
 		this.nationality = nationality;
 		this.username = username;
@@ -67,13 +65,6 @@ public class UserInfo implements Serializable{
 		this.phone = phone;
 	}
 
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	public String getGender() {
 		return gender;
@@ -117,7 +108,7 @@ public class UserInfo implements Serializable{
 	@Override
 	public String toString() {
 		return "UserInfo [fname=" + fname + ", lname=" + lname + ", birthdate=" + birthdate + ", phone=" + phone
-				+ ", email=" + email + ", gender=" + gender + ", nationality=" + nationality + ", username=" + username
+			 + ", gender=" + gender + ", nationality=" + nationality + ", username=" + username
 				+ ", password=" + password + ", city=" + city + "]";
 	}
 

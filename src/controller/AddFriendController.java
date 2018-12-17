@@ -14,7 +14,7 @@ public class AddFriendController {
 	private AddFriendModel model;
 	private AddFriendView view;
 	private Client client;
-	private ArrayList<User> users;
+	//private ArrayList<User> users;
 
 	public AddFriendController(Client c, AddFriendView v) {
 		this.view = v;
@@ -26,40 +26,44 @@ public class AddFriendController {
 
 	public void refresh() {
 		view.clearLists();
-		users = new ArrayList<User>();
+		//test
+		model = new AddFriendModel();
 
 		getAllUsers();
-		getFriends();
+		//getFriends();
 
 	}
 
 	public void getAllUsers() {
-		users = client.getUsers();
+		ArrayList <User> users = client.getUsers();
+		ArrayList <User> friends = getFriends();
 		System.out.println(users);
 		view.setUsers(users);
-		model = new AddFriendModel(users);
+		model = new AddFriendModel(users,friends);
 	}
 
 	public void getSelectedUserInfo(User user) {
-		for (int i = 0; i < users.size(); i++) {
-			if (users.get(i).equals(user)) {
-				view.showSelectedUserInfo(users.get(i).getUserInformation());
+		for (int i = 0; i < model.usersListSize(); i++) {
+			if (model.getUser(i).equals(user)) {
+				view.showSelectedUserInfo(model.getUser(i).getUserInformation(), model.getUser(i).getUserInterest());
 			}
 
 		}
 
 	}
 
-	public void getFriends() {
+	public ArrayList<User> getFriends() {
+		ArrayList<User> friends = new ArrayList<User>();
 		try {
-			users = client.getFriends();
+			friends = client.getFriends();
 		} catch (RemoteException e) {
 			e.getMessage();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		view.setListOfFriends(users);
+		view.setListOfFriends(friends);
+		return friends;
 	}
 
 	public void saveFriendsToDatabase(User[] users) throws RemoteException, SQLException {

@@ -30,7 +30,6 @@ public class SignUpView {
 		private JTextField lNameField;
 		private JTextField txtBirtdate;
 		private JTextField phoneField;
-		private JTextField emailField;
 		private JTextField nationalityField;
 
 		private JPasswordField passwordField;
@@ -100,13 +99,7 @@ public class SignUpView {
 			this.phoneField = phoneField;
 		}
 
-		public JTextField getEmailField() {
-			return emailField;
-		}
-
-		public void setEmailField(JTextField emailField) {
-			this.emailField = emailField;
-		}
+		
 
 		public JTextField getNationalityField() {
 			return nationalityField;
@@ -219,7 +212,6 @@ public class SignUpView {
 			lNameField.setText("");
 			txtBirtdate.setText("");
 			phoneField.setText("");
-			emailField.setText("");
 			nationalityField.setText("");
 
 			passwordField.setText("");
@@ -266,11 +258,6 @@ public class SignUpView {
 
 			phoneField = new JTextField();
 			phoneField.setColumns(10);
-
-			JLabel lblEmail = new JLabel("Email:");
-
-			emailField = new JTextField();
-			emailField.setColumns(10);
 
 			JLabel lblGender = new JLabel("Gender:");
 
@@ -329,100 +316,136 @@ public class SignUpView {
 
 	
 			GroupLayout groupLayout = new GroupLayout(frame.getContentPane());
-			groupLayout.setHorizontalGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-					.addGroup(groupLayout.createSequentialGroup().addGap(22).addComponent(lblFirstName).addGap(9)
-							.addComponent(fNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE)
-							.addGap(24).addComponent(lblLastName).addGap(21).addComponent(lNameField,
-									GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createSequentialGroup().addGap(21).addComponent(lblBirthdate).addGap(25)
-							.addComponent(txtBirtdate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE)
-							.addGap(21).addComponent(lblPhone).addGap(64).addComponent(phoneField,
-									GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createSequentialGroup().addGap(21).addComponent(lblNationality).addGap(9)
-							.addComponent(nationalityField, GroupLayout.PREFERRED_SIZE, 177,
-									GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createSequentialGroup().addGap(21).addComponent(lblGender).addGap(39)
-							.addComponent(rdbtnMale).addGap(18).addComponent(rdbtnFemale).addGap(18)
-							.addComponent(rdbtnOther))
-					.addGroup(groupLayout.createSequentialGroup().addGap(21).addComponent(lblUsername).addGap(18)
-							.addComponent(userNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createSequentialGroup().addGap(21).addComponent(lblPassword).addGap(20)
-							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
-							.addGap(18).addComponent(lblConfirmPassword).addGap(9)
-							.addComponent(vpasswordField, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
-					.addGroup(groupLayout.createSequentialGroup().addGap(21).addComponent(btnSignIn).addGap(440)
-							.addComponent(btnSignUp))
-					.addGroup(groupLayout.createSequentialGroup().addGap(21).addGroup(groupLayout
-							.createParallelGroup(Alignment.TRAILING,
-									false)
-							.addGroup(groupLayout.createSequentialGroup().addComponent(lblCity).addGap(75)
-									.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-											GroupLayout.PREFERRED_SIZE)
-									.addGap(18)
-									
-									.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
-											Short.MAX_VALUE)
-									)
-							.addGroup(Alignment.LEADING,
-									groupLayout.createSequentialGroup().addComponent(lblEmail).addGap(60).addComponent(
-											emailField, GroupLayout.PREFERRED_SIZE, 524, GroupLayout.PREFERRED_SIZE)))
-							.addGap(770)));
-			groupLayout.setVerticalGroup(groupLayout.createParallelGroup(Alignment.LEADING).addGroup(groupLayout
-					.createSequentialGroup().addGap(30)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(lblFirstName))
-							.addComponent(fNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE)
-							.addGroup(groupLayout.createSequentialGroup().addGap(6).addComponent(lblLastName))
-							.addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(lNameField,
-									GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-					.addGap(12)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(lblBirthdate))
-							.addComponent(txtBirtdate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE)
-							.addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(lblPhone))
-							.addComponent(phoneField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE))
-					.addGap(18)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(lblEmail)
-							.addComponent(emailField, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-					.addGap(21)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(lblNationality))
-							.addComponent(nationalityField, GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-					.addGap(36)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup().addGap(9).addComponent(lblGender))
+			groupLayout.setHorizontalGroup(
+				groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createSequentialGroup()
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(18)
+								.addComponent(lblNationality)
+								.addPreferredGap(ComponentPlacement.UNRELATED)
+								.addComponent(nationalityField, GroupLayout.PREFERRED_SIZE, 177, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(21)
+								.addComponent(lblPassword)
+								.addGap(20)
+								.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, 179, GroupLayout.PREFERRED_SIZE)
+								.addGap(18)
+								.addComponent(lblConfirmPassword)
+								.addGap(9)
+								.addComponent(vpasswordField, GroupLayout.PREFERRED_SIZE, 176, GroupLayout.PREFERRED_SIZE))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(21)
+								.addComponent(btnSignIn)
+								.addGap(440)
+								.addComponent(btnSignUp))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(22)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING, false)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(lblBirthdate)
+										.addGap(18)
+										.addComponent(txtBirtdate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(lblPhone))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addComponent(lblFirstName)
+										.addGap(9)
+										.addComponent(fNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+										.addGap(24)
+										.addComponent(lblLastName)))
+								.addGap(21)
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addComponent(phoneField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(lNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGap(21)
+										.addGroup(groupLayout.createParallelGroup(Alignment.TRAILING)
+											.addComponent(lblUsername)
+											.addComponent(lblCity)))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGap(21)
+										.addComponent(lblGender)))
+								.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGap(39)
+										.addComponent(rdbtnMale)
+										.addGap(18)
+										.addComponent(rdbtnFemale)
+										.addGap(18)
+										.addComponent(rdbtnOther))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGap(18)
+										.addComponent(userNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGroup(groupLayout.createSequentialGroup()
+										.addGap(38)
+										.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))))
+						.addGap(802))
+			);
+			groupLayout.setVerticalGroup(
+				groupLayout.createParallelGroup(Alignment.LEADING)
+					.addGroup(groupLayout.createSequentialGroup()
+						.addGap(30)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(3)
+								.addComponent(lblFirstName))
+							.addComponent(fNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(6)
+								.addComponent(lblLastName))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(3)
+								.addComponent(lNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+						.addGap(46)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(lblBirthdate)
+							.addComponent(txtBirtdate, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblPhone)
+							.addComponent(phoneField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(36)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(nationalityField, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblNationality))
+						.addGap(36)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(9)
+								.addComponent(lblGender))
 							.addComponent(rdbtnMale, GroupLayout.PREFERRED_SIZE, 45, GroupLayout.PREFERRED_SIZE)
-							.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(rdbtnFemale))
-							.addGroup(groupLayout.createSequentialGroup().addGap(5).addComponent(rdbtnOther)))
-					.addGap(11)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup().addGap(24).addComponent(lblCity))
-							.addGroup(groupLayout.createSequentialGroup().addGap(18).addComponent(cityComboBox,
-									GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGroup(groupLayout.createSequentialGroup().addGap(24)
-									.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
-											)))
-					.addGap(21)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(lblUsername))
-							.addComponent(userNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE))
-					.addGap(25)
-					.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
-							.addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(lblPassword))
-							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE)
-							.addGroup(groupLayout.createSequentialGroup().addGap(3).addComponent(lblConfirmPassword))
-							.addComponent(vpasswordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-									GroupLayout.PREFERRED_SIZE))
-					.addGap(75).addGroup(groupLayout.createParallelGroup(Alignment.LEADING).addComponent(btnSignIn)
-							.addComponent(btnSignUp))));
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(5)
+								.addComponent(rdbtnFemale))
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(5)
+								.addComponent(rdbtnOther)))
+						.addGap(29)
+						.addGroup(groupLayout.createParallelGroup(Alignment.BASELINE)
+							.addComponent(cityComboBox, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(lblCity))
+						.addGap(21)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(3)
+								.addComponent(lblUsername))
+							.addComponent(userNameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(25)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(3)
+								.addComponent(lblPassword))
+							.addComponent(passwordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addGroup(groupLayout.createSequentialGroup()
+								.addGap(3)
+								.addComponent(lblConfirmPassword))
+							.addComponent(vpasswordField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(75)
+						.addGroup(groupLayout.createParallelGroup(Alignment.LEADING)
+							.addComponent(btnSignIn)
+							.addComponent(btnSignUp)))
+			);
 			frame.getContentPane().setLayout(groupLayout);
 
 			setBlackInputs();
@@ -434,7 +457,6 @@ public class SignUpView {
 			getlNameField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getTxtBirtdate().setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getPhoneField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
-			getEmailField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getNationalityField().setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			cityComboBox.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 			getUserNameField().setBorder(BorderFactory.createLineBorder(Color.BLACK));

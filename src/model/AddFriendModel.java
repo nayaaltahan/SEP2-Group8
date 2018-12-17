@@ -3,32 +3,33 @@ package model;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import org.postgresql.jdbc2.ArrayAssistantRegistry;
+
 import shared.User;
 
 public class AddFriendModel implements Serializable {
 	private ArrayList<User> users;
+	private ArrayList<User> friends;
 
 	public AddFriendModel() {
 		users = new ArrayList<User>();
+		friends = new ArrayList<User>();
 	}
 
-	public AddFriendModel (ArrayList<User> users) {
-		this.users=users;
+	public AddFriendModel(ArrayList<User> users, ArrayList<User> friends) {
+		this.users = users;
+		this.friends = friends;
 	}
-	public void addUser(User user) {
+
+	public void addUserToUsers(User user) {
 		users.add(user);
 	}
 
-	public User getUser(String username) {
-		User user = null;
-		for (int i = 0; i < users.size(); i++) {
-			if (users.get(i).getUserName().equalsIgnoreCase(username)) {
-				
-			}
-		}
-		return user;
+	public void addUserToFriends(User friend) {
+		friends.add(friend);
 	}
-	public User get(int index) {
+
+	public User getUser(int index) {
 		return users.get(index);
 	}
 
@@ -41,6 +42,10 @@ public class AddFriendModel implements Serializable {
 			returnStr += temp + "\n";
 		}
 		return returnStr;
+	}
+	
+	public int usersListSize() {
+		return users.size();
 	}
 
 }
