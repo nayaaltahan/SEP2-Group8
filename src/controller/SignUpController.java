@@ -98,16 +98,6 @@ public class SignUpController {
 
 		}
 
-		if (view.getEmailField().getText().isEmpty()) {
-
-			view.getEmailField().setBorder(BorderFactory.createLineBorder(Color.RED));
-			msj.append("Email is empty \n");
-
-		} else {
-			user.setEmail(view.getEmailField().getText());
-			view.getEmailField().setBorder(BorderFactory.createLineBorder(Color.GREEN));
-
-		}
 
 		if (view.getNationalityField().getText().isEmpty()) {
 
