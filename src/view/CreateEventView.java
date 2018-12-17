@@ -193,7 +193,7 @@ public class CreateEventView extends JPanel {
 		categories = new JList<Interest>(categoriesDataModel);
 		categoriesScroll = new JScrollPane(categories);
 
-		//categoriesScroll.add(categories);
+		// categoriesScroll.add(categories);
 
 		lblCategories = new JLabel("Categories:");
 
@@ -335,10 +335,14 @@ public class CreateEventView extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			String message = "";
 			if (e.getSource() == btnCreate) {
-				if (eventName.getText().length() == 0) {
-					message += "Event name is empty\n";
-				} else if (textStreetName.getText().length() == 0) {
-					message += "Street name is empty\n";
+				if (eventName.getText().length() == 0 || textStreetName.getText().length() == 0) {
+					if (eventName.getText().length() == 0) {
+						message += "Event name is empty\n";
+					}
+					if (textStreetName.getText().length() == 0) {
+						message += "Street name is empty\n";
+					}
+					showMessage(message);
 				} else {
 					String name = eventName.getText();
 					String address = textStreetName.getText();
@@ -360,11 +364,13 @@ public class CreateEventView extends JPanel {
 					try {
 						ctrlr.createEvent(event);
 					} catch (RemoteException e1) {
-						e1.printStackTrace();
-						showMessage(e1.getMessage());
+						e1.printStackTrace();	
 					} catch (SQLException e1) {
-						e1.printStackTrace();
-						showMessage(e1.getMessage());
+						if(e1.getMessage() != null) {
+							if(e1.getMessage().contains("too long")) {
+								showMessage("event name or address is too long, make sure they only contain 30 characters");
+							}
+						}
 					}
 				}
 			}

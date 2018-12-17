@@ -4,8 +4,8 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import model.InterestList;
 import shared.Interest;
+import shared.InterestList;
 
 public interface IInterest extends Remote{
 	boolean saveInterest(Interest interest) throws RemoteException , SQLException;

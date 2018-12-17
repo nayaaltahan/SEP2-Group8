@@ -4,11 +4,10 @@ import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.sql.SQLException;
 
-import controller.IController;
 import controller.InterestsController;
-import model.InterestList;
 import model.NewsFeedModel;
 import shared.Interest;
+import shared.InterestList;
 import shared.User;
 import shared.UserInfo;
 

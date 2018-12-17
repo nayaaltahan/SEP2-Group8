@@ -8,7 +8,6 @@ import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
-import controller.IController;
 import databaseaccessing.EditInfoHandler;
 import databaseaccessing.EventHandler;
 import databaseaccessing.IEditData;
@@ -46,6 +45,9 @@ public class ServerTest {
 			
 			System.out.println("Server connected");
 			System.out.println(Timestamp.valueOf("2018-1-1 1:1:0"));
+			System.out.println("".length());
+			System.out.println(" ".length());
+			System.out.println("  ".length());
 			
 		} catch (RemoteException | MalformedURLException | AlreadyBoundException e) {
 			// TODO Auto-generated catch block

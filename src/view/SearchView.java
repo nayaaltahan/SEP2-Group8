@@ -51,6 +51,7 @@ public class SearchView extends JPanel {
 		table.getColumnModel().getColumn(1).setPreferredWidth(35);
 		table.getColumnModel().getColumn(2).setPreferredWidth(20);
 		table.getColumnModel().getColumn(4).setPreferredWidth(20);
+		
 
 		JPanel controlPanel = new JPanel();
 		controlPanel.setLayout(new FlowLayout());
@@ -119,7 +120,7 @@ public class SearchView extends JPanel {
 				// if (education.isSelected())
 				// conditions.add("(education = '" + education.getText() + "')");
 				if (age.isSelected() && !age.getText().isEmpty())
-					conditions.add("(age(birthdate) = " + age.getText() + ")");
+					conditions.add("(extract(YEAR FROM age(cast (birthdate as date))) = " + age.getText() + ")");
 				// if (work.isSelected())
 				// conditions.add("(work = '" + work.getText() + "')");
 				if (nationality.isSelected() && !nationality.getText().isEmpty())

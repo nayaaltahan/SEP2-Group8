@@ -12,11 +12,9 @@ import shared.UserInfo;
 
 
 public interface IUserData extends Remote{
-	// public String[] getUserNames(String city) throws RemoteException;
 	public UserInfo getUserInfo(String username) throws RemoteException;
-	// public String getUserName(User user)throws RemoteException;
 	boolean existUser(String userName) throws RemoteException;
-	boolean saveUser(UserInfo user)throws RemoteException;
+	String saveUser(UserInfo user)throws RemoteException;
 	public ArrayList<User> getUsers(String username) throws RemoteException;
 	public void addFriends(String username, User[] users) throws RemoteException , SQLException;
 	public ArrayList<Interest> getUsersInterests(String username) throws RemoteException;

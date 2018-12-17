@@ -3,8 +3,8 @@ package test;
 import java.rmi.RemoteException;
 
 import databaseaccessing.InterestAdapter;
-import model.InterestList;
 import shared.Interest;
+import shared.InterestList;
 
 public class InterestsTest {public static void main(String[] args) {
 	InterestAdapter adapter = new InterestAdapter();

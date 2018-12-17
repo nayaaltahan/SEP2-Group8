@@ -4,8 +4,8 @@ import java.rmi.RemoteException;
 import java.sql.SQLException;
 
 import client.Client;
-import model.InterestList;
 import shared.Interest;
+import shared.InterestList;
 import view.AddInterestGUI;
 import view.MainGUI;
 import view.NewsFeedPanel;

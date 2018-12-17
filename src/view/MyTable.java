@@ -11,9 +11,6 @@ class MyTable extends JTable {
 
 	@Override
 	public boolean isCellEditable(int row, int column) {
-		if (column == 0)
-			return false;
-		else
-			return true;
+		return false;
 	}
 }
