@@ -5,8 +5,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import model.InterestList;
 import shared.Interest;
+import shared.InterestList;
 
 public class InterestAdapter implements IInterest {
 	private DatabaseConnection db;

@@ -93,18 +93,37 @@ public class UserInfoHandler implements IUserData {
 	}
 
 	@Override
-	public boolean saveUser(UserInfo user) {
-		boolean correct = true;
+	public String saveUser(UserInfo user) {
+		String correct = "correct";
 		try {
 			db.update(INSERT_INTO, user.getFname(), user.getLname(), // LocalDate.parse(user.getBirthdate(), FORMATTER),
 					Date.valueOf(user.getBirthdate()), user.getPhone(), user.getGender(), user.getNationality(),
 					user.getUsername(), user.getPassword(), user.getCity());
 
 		} catch (Exception e) {
-			correct = false;
+			// sometime the e.getmessage returns null so the check is to make sure not to call a method on null
+			if (e.getMessage() != null) {
+				if (e.getMessage().contains("birthdate")) {
+					// birthdate is not in the domain range
+					correct = "birth";
+				} else if (e.getMessage().contains("integer")) {
+					// number is wrong
+					correct = "number";
+				} else if (e.getMessage().contains("date") && !e.getMessage().contains("birthdate")) {
+					// date format is wrong message
+					correct = "date";
+				}else if(e.getMessage().contains("too long")) {
+					correct = "too long";
+				} else {
+					correct = e.getMessage();
+				}
+			} else {
+				correct = "date";
+			}
 		}
 
-		return correct;
+	return correct;
+
 	}
 
 	@Override

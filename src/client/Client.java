@@ -14,10 +14,10 @@ import databaseaccessing.IInterest;
 import databaseaccessing.ILoginData;
 import databaseaccessing.IMessagesData;
 import databaseaccessing.IUserData;
-import model.InterestList;
 import model.NewsFeedModel;
 import shared.Event;
 import shared.Interest;
+import shared.InterestList;
 import shared.ProxyUser;
 import shared.Status;
 import shared.User;
@@ -74,18 +74,12 @@ public class Client {
 		return false;
 	}
 
-	public boolean saveUser(UserInfo user)  {
-		try {
-			boolean temp = userData.saveUser(user);
-			if (temp) {
-				setClient(user.getUsername());
-			}
-			return temp;
-		} catch (RemoteException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+	public String saveUser(UserInfo user) throws RemoteException {
+		String temp = userData.saveUser(user);
+		if (temp.equals("correct")) {
+			setClient(user.getUsername());
 		}
-		return false;
+		return temp;
 	}
 
 	public boolean userInfoIsCorrect(String username, String password) {
@@ -118,8 +112,9 @@ public class Client {
 		return null;
 	}
 
-	public void addChosenInterestsIntoUserInterestTable(InterestList selectedInterests) throws SQLException, RemoteException {
-			interestData.addChosenInterestsIntoUserInterestTable(username, selectedInterests);
+	public void addChosenInterestsIntoUserInterestTable(InterestList selectedInterests)
+			throws SQLException, RemoteException {
+		interestData.addChosenInterestsIntoUserInterestTable(username, selectedInterests);
 	}
 
 	public ArrayList<User> getUsers() {
@@ -172,7 +167,8 @@ public class Client {
 	public ArrayList<User> getFriends() throws RemoteException, SQLException {
 		ArrayList<User> list = userData.getFriends(username);
 		System.out.println(list);
-		return list;	}
+		return list;
+	}
 
 	public boolean userInfoIsCorrectEdit(String password, String confirm) throws SQLException {
 		try {
@@ -191,18 +187,19 @@ public class Client {
 		userData.addFriends(username, friends);
 
 	}
-	
+
 	public String[] getCities() throws RemoteException, SQLException {
 		return eventData.getCities();
 	}
-	
-	public InterestList getUserInterest()  {
+
+	public InterestList getUserInterest() {
 		try {
 			return interestData.getUserInterest(username);
 		} catch (RemoteException | SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}return  null;
+		}
+		return null;
 
 	}
 

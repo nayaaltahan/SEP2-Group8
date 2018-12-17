@@ -1,10 +1,8 @@
-package model;
+package shared;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-
-import shared.Interest;
 
 public class InterestList implements Serializable {
 	private List<Interest> interests;

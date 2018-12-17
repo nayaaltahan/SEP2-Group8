@@ -13,9 +13,8 @@ import javax.swing.ScrollPaneConstants;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
 import controller.InterestsController;
-
-import model.InterestList;
 import shared.Interest;
+import shared.InterestList;
 import shared.User;
 
 import javax.swing.JButton;
@@ -215,7 +214,10 @@ public class AddInterestGUI extends JPanel{
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			if (e.getSource() == btnAdd) {
-				ctrlr.saveInterest(new Interest(textField.getText()));
+				if(textField.getText().trim().isEmpty() ) {
+					showMessage("field is empty");
+				}
+				else{ctrlr.saveInterest(new Interest(textField.getText()));}
 				
 			}
 			if (e.getSource() == btnSave) {
